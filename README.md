@@ -1,5 +1,5 @@
 # Terragrunt Garland Challange
-    This repo has code about garland's challange, following is a detail of the requirement.
+    This repository contains all the steps to carry out the Garland's challenge, find below the detail of the requirement.
 
 ## Requirements:
     Then this is a perfect technical test.  We are using Terragrunt here and you will have to learn that anyways.  This test is here to assess a few things:
