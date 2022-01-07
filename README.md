@@ -74,3 +74,44 @@ In this step run each of the following resource groups
   requirement already had terragrunt implemented for the whole 
   solution, however I tried to do it on my own for the required file).
   But if it is necessary to indicate if I understood how it was implemented in original repo, you can contact me
+
+  - Terragrunt was configured in folder (./terragrunt-config)
+  - A folder called src with the main terraform (tf) files was created
+  - ![](img/terragrunt/terragrunt_src.png)
+  - The model used in terragrunt was "Promote immutable, versioned Terraform modules across environments". Here is a reference image in source: https://terragrunt.gruntwork.io/docs/getting-started/quick-start/
+  - ![](img/terragrunt/terragrunt_model_reference.png)
+  - In our own model it looks like this
+  - ![](img/terragrunt/terragrunt_own_model.png)
+  - How terragrunt works?: 
+    - A single set of terraform master files
+    - Each file must contain input variables to customize our deployment as much as possible.
+    - In case of the file required by Garland Kan, implement only 2 input variables: environment and region. But in the previous dependent files we can observe more configurable elements such as cluster size, ec2 size, etc.
+    - Additionally, concatenate the environment to the terraform backend workspace, so that the states do not overwrite themselves.
+    - ![](img/terragrunt/terragrunt_file_tf_1.png)
+    - ![](img/terragrunt/terragrunt_file_tf_2.png)
+    - Folders could be sorted by environment, stack or resource (depends on the case ). example (./enviroments/dev/eks_autoscaler/terragrunt.hcl)
+    - Terragrunt.hcl files contain the set of custom input variables for each environment. In the case of the request file, it looks like this in dev:
+    - ![](img/terragrunt/terragrunt_eksautoscaler_hcl.png)
+    - Below is a table of the values that were configured per environment for the complete solution, including vpc, route53, eks and eks_autoscaler.
+      | Resource  |  Parameter  | Dev  | Qa  | Prod  |
+      |---|---|---|---|---|
+      |  Route53  | enviroment  |  dev | qa  | prod  |
+      |  Route53  |  aws_region |  us-east-1 | us-east-2  | us-west-1  |
+      |  Route53  | domain_name  |  dev.k8s.managedkube.com | qa.k8s.managedkube.com  |  prod.k8s.managedkube.com |
+      |  VPC  | azs  | "us-east-1a", "us-east-1c", "us-east-1d"  |  "us-east-2a", "us-east-2b", "us-east-2c" | "us-west-1a", "us-west-1b", "us-west-1c"  |
+      |  VPC  |  vpc_cidr | "10.0.0.0/16"  | "10.0.0.0/16"  | "10.0.0.0/16"  |
+      |  VPC  | private_subnets  |  "10.0.1.0/24", "10.0.2.0/24", "10.0.3.0/24" | "10.0.1.0/24", "10.0.2.0/24", "10.0.3.0/24"  |  "10.0.1.0/24", "10.0.2.0/24", "10.0.3.0/24" |
+      |  VPC  | public_subnets  | "10.0.101.0/24", "10.0.102.0/24", "10.0.103.0/24"  |  "10.0.101.0/24", "10.0.102.0/24", "10.0.103.0/24" |  "10.0.101.0/24", "10.0.102.0/24", "10.0.103.0/24" |
+      |  EKS  |  cluster_version | 1.20  | 1.20  | 1.20  |
+      |  EKS  | cluster_endpoint_public_access_cidrs  |  "0.0.0.0/0","1.1.1.1/32"  | "0.0.0.0/0","1.1.1.1/32"  |  "0.0.0.0/0","1.1.1.1/32" |
+      |  EKS  | cluster_endpoint_private_access_cidrs  | "10.0.0.0/8","172.16.0.0/12","192.168.0.0/16","100.64.0.0/16"  | "10.0.0.0/8","172.16.0.0/12","192.168.0.0/16","100.64.0.0/16"  |  "10.0.0.0/8","172.16.0.0/12","192.168.0.0/16","100.64.0.0/16" |
+      |  EKS  |  node_version |  1.20 |  1.20 |  1.20 |
+      |  EKS  | disk_size  |  20gb | 40gb  | 80gb  |
+      |  EKS  | desired_capacity  |  2 | 2 |  2 |
+      |  EKS  |  max_capacity |  2 | 4  |  8 |
+      |  EKS  | min_capacity  |  1 | 2  | 3  |
+      |  EKS  | instance_types  | t3.small  | t3.medium  | t3.large  |
+
+    - All of the above will give us greater flexibility in the deployment of our 3 important environments in a more orderly and simple way. 
+## Cooming Soon, Work under construction (we have some issues with terragrunt!!!)
+<img src="img/terragrunt/underconstruction.png" alt="drawing" width="200"/>
