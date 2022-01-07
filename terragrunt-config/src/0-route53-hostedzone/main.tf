@@ -1,6 +1,7 @@
 locals {
   aws_region  = var.aws_region
   domain_name = var.domain_name
+  environment_name = var.enviroment
   tags = {
     ops_env              = var.enviroment
     ops_managed_by       = "terraform",
