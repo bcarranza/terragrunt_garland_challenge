@@ -23,30 +23,54 @@
     Post it here
 
 
-1. i got a fork or copy from file repo in terraform old format, you could see [here](/terragrunt_garland_challenge/terraform.old.format/main.tf)
+1. i got a fork or copy from file repo in terraform old format, you could see [here](/terragrunt_garland_challenge/terraform.old.format)
 
 ## Terragrunt 
+![](img/terragrunt_logo.png)
 Terragrunt is a thin wrapper that provides extra tools for keeping your configurations DRY, working with multiple Terraform modules, and managing remote state.
 In summary Define Terraform code once, no matter how many environments you have.
 <br />
-![](/img/terragrunt_enviroment.png)
 source: https://terragrunt.gruntwork.io/
 
 
 ## What is the problem and the Solution?
 In my own words, i consider that for create multiples enviroments as dev, qa and prod; when you are using terraform , you need to create once file for every enviroment. for example.
 <br />
-![](/img/terraform_architecture.png)
+![](img/terraform_architecture.png)
 <br />
 Terragrunt solves it. something like this
 <br />
-![](/img/terragrunt_modules.png)
+![](img/terragrunt_modules.png)
 
 1. first, Install terragrunt (mac os)
    >➜ ✗ brew install terragrunt
 
 2. In adition , i created an organization in my own account of terraform cloud with name managekube1 (managekube already exits)
 <br />
-![](/img/terraform_cloud_org.png)
+![](img/terraform_cloud_org.png)
 
-3. Futhermore, (explain about terraform old format)
+1. Futhermore, 
+To understand how I could implement terragrunt, I first set up a traditional terraform cloud environment to validate that my traditional terraform files worked well; this being a set of folders each with its own main.tf; to ensure that the required file works correctly; I needed to connect 
+with terraform cloud and aws credentials (personal account); from here it is evident the problem, it is necessary to configure workspaces previously and hardcode it, the environment variables are managed in a group for each workspace, so it is usually a headache.
+In this step run each of the following resource groups
+
+- route 53
+  ![](img/terraform_old/route53_bash_result.png)
+  ![](img/terraform_old/route53_console_result.png)
+- vpc
+  ![](img/terraform_old/vpc_bash_result.png)
+  ![](img/terraform_old/vpc_console_result.png)
+- eks
+  ![](img/terraform_old/eks_bash_result.png)
+  ![](img/terraform_old/eks_console_result.png)
+- eks autoscaler
+  ![](img/terraform_old/eks_autoscaler_bash.png)
+  ![](img/terraform_old/eks_autoscaler_console.png)
+
+  in the right order, since there is resource dependency; resulting in successful states in terraform cloud
+  ![](img/terraform_old/workspace_terraform_cloud_result.png)
+
+1. And finally, I implemented terragrunt (note: the repo given in the 
+  requirement already had terragrunt implemented for the whole 
+  solution, however I tried to do it on my own for the required file).
+  But if it is necessary to indicate if I understood how it was implemented in original repo, you can contact me
