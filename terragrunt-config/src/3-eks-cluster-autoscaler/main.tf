@@ -66,7 +66,7 @@ module "cluster-autoscaler" {
   source = "github.com/ManagedKube/kubernetes-ops//terraform-modules/aws/cluster-autoscaler?ref=v1.0.12"
 
   aws_region                  = local.aws_region
-  cluster_name                = local.environment_name
+  cluster_name                = local.cluster_name
   eks_cluster_id              = data.terraform_remote_state.eks.outputs.cluster_id
   eks_cluster_oidc_issuer_url = data.terraform_remote_state.eks.outputs.cluster_oidc_issuer_url
 
@@ -81,3 +81,4 @@ variable "aws_region" {}
 variable "organization_name" {}
 variable "workspace_eks_name" {}
 variable "workspace_eks_autoscaler_name" {}
+variable "cluster_name" {}

@@ -12,4 +12,5 @@ inputs = {
   aws_region = "us-east-1"
   organization_name = "managedkube1"
   workspace_name = "eks_autoscaler_workspace"
+  cluster_name = "eks-dev-garlandchallange"
 }
