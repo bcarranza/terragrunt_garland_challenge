@@ -10,4 +10,6 @@ terraform {
 inputs = {
   environment = "prod"
   aws_region = "us-west-1"
+  organization_name = "managedkube1"
+  workspace_name = "eks_autoscaler_workspace"
 }
