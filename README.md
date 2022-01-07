@@ -45,7 +45,7 @@ Terragrunt solves it. something like this
 1. first, Install terragrunt (mac os)
    >➜ ✗ brew install terragrunt
 
-2. In adition , i created an organization in my own account of terraform cloud with name managekube1 (managekube already exits)
+2. In adition , i created an organization in my own account of terraform cloud with name managekube1 (managekube already exits).
 <br />
 ![](img/terraform_cloud_org.png)
 
