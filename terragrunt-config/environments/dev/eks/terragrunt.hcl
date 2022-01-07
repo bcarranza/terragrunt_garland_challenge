@@ -1,6 +1,8 @@
+include {
+  path = find_in_parent_folders()
+}
 terraform {
-  source =
-    "../../src/2-eks"
+  source ="../../src/2-eks"
 }
 inputs = {
   enviroment = "dev"

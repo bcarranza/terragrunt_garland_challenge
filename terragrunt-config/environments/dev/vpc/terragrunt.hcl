@@ -1,6 +1,8 @@
+include {
+  path = find_in_parent_folders()
+}
 terraform {
-  source =
-    "../../src/1-vpc"
+  source ="../../src/1-vpc"
 }
 inputs = {
   environment = "dev"
