@@ -70,7 +70,7 @@ In this step run each of the following resource groups
   in the right order, since there is resource dependency; resulting in successful states in terraform cloud
   ![](img/terraform_old/workspace_terraform_cloud_result.png)
 
-1. And finally, I implemented terragrunt (note: the repo given in the 
+4. And finally, I implemented terragrunt (note: the repo given in the 
   requirement already had terragrunt implemented for the whole 
   solution, however I tried to do it on my own for the required file).
   But if it is necessary to indicate if I understood how it was implemented in original repo, you can contact me
