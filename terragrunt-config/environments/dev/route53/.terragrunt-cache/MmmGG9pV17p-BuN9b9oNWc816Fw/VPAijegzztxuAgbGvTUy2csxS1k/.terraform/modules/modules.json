@@ -1,0 +1,1 @@
+{"Modules":[{"Key":"route53-hostedzone","Source":"git::https://github.com/ManagedKube/kubernetes-ops.git?ref=v1.0.19//terraform-modules/aws/route53/hosted-zone","Dir":".terraform/modules/route53-hostedzone/terraform-modules/aws/route53/hosted-zone"},{"Key":"","Source":"","Dir":"."}]}
