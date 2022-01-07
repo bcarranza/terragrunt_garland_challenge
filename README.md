@@ -46,10 +46,7 @@ Terragrunt solves it. something like this
    >➜ ✗ brew install terragrunt
 
 2. In adition , i created an organization in my own account of terraform cloud with name managekube1 (managekube already exits).
-<br />
 ![](img/terraform_cloud_org.png)
-<br />
-
 
 1. Futhermore, 
 To understand how I could implement terragrunt, I first set up a traditional terraform cloud environment to validate that my traditional terraform files worked well; this being a set of folders each with its own main.tf; to ensure that the required file works correctly; I needed to connect 
