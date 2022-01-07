@@ -1,13 +1,10 @@
+
+/*Terraform file source */
+/*all  var.* variables are matched with the file ./enviroments/$enviroment/eks_autoscaler/terragrunt.hcl*/
+
 locals {
   aws_region       = var.aws_region
   environment_name = var.environment
-  tags = {
-    ops_env              = "${local.environment_name}"
-    ops_managed_by       = "terraform",
-    ops_source_repo      = "kubernetes-ops",
-    ops_source_repo_path = "terraform.old.format/aws/${local.environment_name}/25-eks-cluster-autoscaler",
-    ops_owners           = "devops",
-  }
 }
 
 terraform {
@@ -26,10 +23,10 @@ terraform {
   }
 
   backend "remote" {
-    organization = "managedkube1"
+    organization = ${local.organization_name}
 
     workspaces {
-      name = "eks_autoscaler_workspace_${local.environment_name}"
+      name = "${local.workspace_eks_autoscaler_name}_${local.environment_name}"
     }
   }
 }
@@ -41,9 +38,9 @@ provider "aws" {
 data "terraform_remote_state" "eks" {
   backend = "remote"
   config = {
-    organization = "managedkube1"
+    organization = ${local.organization_name}
     workspaces = {
-      name = "eks_workspace_${local.environment_name}"
+      name = "${local.workspace_eks_name}_${local.environment_name}"
     }
   }
 }
@@ -79,5 +76,9 @@ module "cluster-autoscaler" {
   ]
 }
 
+/*BC: Declaration of input variables matching the file ./enviroments/$enviroment/eks_autoscaler/terragrunt.hcl*/
 variable "environment" {}
 variable "aws_region" {}
+variable "organization_name" {}
+variable "workspace_eks_name" {}
+variable "workspace_eks_autoscaler_name" {}
